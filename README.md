@@ -9,6 +9,13 @@ This implementation of FACETS requires a tumor sample, matched normal and user 
 
 - [ ] Planned: infer sex from matched normal sample, and select an unmatched normal with same sex for chrX normalization.
 
+## Install R library
+
+```
+devtools::install_github("rptashkin/facets2n")
+
+```
+
 ## snp-pileup command options used for IMPACT data:
 ```
 snp-pileup
@@ -17,11 +24,12 @@ snp-pileup
  -A
  -d 20000
  -r 10,0,10,...10 (10, for each unmatched normal)
- -q
- -Q
- -v
+ -q 0
+ -Q 0
+ -v <dbsnp VCF>
 
- BAM file input order: matched normal, tumor, unmatched normals
+<counts file>
+ <BAM files, in order: matched normal, tumor, unmatched normals>
 ```
 
 ## Example generation of the input counts file using snp-pileup (required) and 18 assay specific unmatched diploid normals and 1 batch Pooled Normal:
@@ -33,6 +41,7 @@ P-0030397-NN.bam P-0029502-TH.bam <path_to_assay_specific_unmatched_diploid_norm
 
 ## Run FACETS with matched normal
 ```
+library(facets2n)
 readu =  readSnpMatrix(filename = "tests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = FALSE)
 xx = preProcSample(readu, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000, MandUnormal = FALSE)
 oo=procSample(xx,min.nhet = 10, cval = 150)
@@ -50,6 +59,7 @@ Results using matched normal:
 ## Run FACETS with unmatched normal samples
 *The runtime readSnpMatrix() increases with number of unmatched normal samples*
 ```
+library(facets2n)
 readm = readSnpMatrix(filename = "ttests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = TRUE)
 xx = preProcSample(readm$rcmat, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000,spanT = readm$spanT, spanA=readm$spanA, spanX = readm$spanX, MandUnormal = TRUE)
 oo=procSample(xx,min.nhet = 10, cval = 150)
