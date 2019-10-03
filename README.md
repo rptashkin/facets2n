@@ -13,7 +13,6 @@ This implementation of FACETS requires a tumor sample, matched normal and user 
 
 ```
 devtools::install_github("rptashkin/facets2n")
-
 ```
 
 ## snp-pileup command options used for IMPACT data:
@@ -42,8 +41,8 @@ P-0030397-NN.bam P-0029502-TH.bam <path_to_assay_specific_unmatched_diploid_norm
 ## Run FACETS with matched normal
 ```
 library(facets2n)
-readu =  readSnpMatrix(filename = "tests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = FALSE)
-xx = preProcSample(readu, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000, MandUnormal = FALSE)
+readm =  readSnpMatrix(filename = "tests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = FALSE)
+xx = preProcSample(readm, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000, MandUnormal = FALSE)
 oo=procSample(xx,min.nhet = 10, cval = 150)
 dlr = oo$dipLogR
 oo=procSample(xx,min.nhet = 10, cval = 50, dipLogR = dlr)
@@ -52,16 +51,16 @@ png(filename = "tests/P-0029502_matched_CNLR.png",width = 4, height = 6, units =
 plotSample(x=oo,emfit=fit, plot.type = "both")
 dev.off()
 ```
-Results using matched normal:
+Results using matched normal for CNLR:
 
 ![matched normal cnlr](/tests/P-0029502_matched_CNLR.png)
 
-## Run FACETS with unmatched normal samples
+## Run FACETS with unmatched normal samples for CNLR
 *The runtime readSnpMatrix() increases with number of unmatched normal samples*
 ```
 library(facets2n)
-readm = readSnpMatrix(filename = "ttests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = TRUE)
-xx = preProcSample(readm$rcmat, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000,spanT = readm$spanT, spanA=readm$spanA, spanX = readm$spanX, MandUnormal = TRUE)
+readu = readSnpMatrix(filename = "tests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = TRUE)
+xx = preProcSample(readu$rcmat, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000,spanT = readu$spanT, spanA=readu$spanA, spanX = readu$spanX, MandUnormal = TRUE)
 oo=procSample(xx,min.nhet = 10, cval = 150)
 
 dlr = oo$dipLogR
