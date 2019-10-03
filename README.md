@@ -9,7 +9,7 @@ This implementation of FACETS requires a tumor sample, matched normal and user 
 
 - [ ] Planned: infer sex from matched normal sample, and select an unmatched normal with same sex for chrX normalization.
 
-##snp-pileup command options used for IMPACT data:
+## snp-pileup command options used for IMPACT data:
 ```
 snp-pileup
  -g
@@ -24,14 +24,14 @@ snp-pileup
  BAM file input order: matched normal, tumor, unmatched normals
 ```
 
-##Example generation of the input counts file using snp-pileup (required) and 18 assay specific unmatched diploid normals and 1 batch Pooled Normal:
+## Example generation of the input counts file using snp-pileup (required) and 18 assay specific unmatched diploid normals and 1 batch Pooled Normal:
 ```
 snp-pileup -g -p -A -d 20000 -r 10,0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 -q 0 -Q 0 -v dbsnp_137.hg19__RmDupsClean__plusPseudo50__DROP_SORT_NOCHR.vcf countsMerged_uNormals_P-0029502.dat.gz
 P-0030397-NN.bam P-0029502-TH.bam <path_to_assay_specific_unmatched_diploid_normals>/*bam PoolNormal.bam
 ```
 
-##Run FACETS with matched normal
+## Run FACETS with matched normal
 ```
 readu =  readSnpMatrix(filename = "tests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = FALSE)
 xx = preProcSample(readu, unmatched = F,ndepth = 10,het.thresh = 0.25,ndepthmax = 5000, MandUnormal = FALSE)
@@ -47,7 +47,7 @@ Results using matched normal:
 
 ![matched normal cnlr](/tests/P-0029502_matched_CNLR.png)
 
-##Run FACETS with unmatched normal samples
+## Run FACETS with unmatched normal samples
 *The runtime readSnpMatrix() increases with number of unmatched normal samples*
 ```
 readm = readSnpMatrix(filename = "ttests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = TRUE)
