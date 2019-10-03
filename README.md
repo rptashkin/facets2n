@@ -16,18 +16,20 @@ snp-pileup
  -p
  -A
  -d 20000
- -r 10,0,(10...for each unmatched normal)
+ -r 10,0,10,...10 (10, for each unmatched normal)
  -q
  -Q
  -v
+
  BAM file input order: matched normal, tumor, unmatched normals
 ```
 
 ##Example generation of the input counts file using snp-pileup (required) and 18 assay specific unmatched diploid normals and 1 batch Pooled Normal:
 ```
-snp-pileup -g -p -A -d 20000 -r 10,0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10 -q 0 -Q 0 -v dbsnp_137.hg19__RmDupsClean__plusPseudo50__DROP_SORT_NOCHR.vcf countsMerged_uNormals_P-0029502.dat.gz P-0030397-NN.bam P-0029502-TH.bam <path_to_assay_specific_unmatched_diploid_normals>/*bam PoolNormal.bam
+snp-pileup -g -p -A -d 20000 -r 10,0,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+-q 0 -Q 0 -v dbsnp_137.hg19__RmDupsClean__plusPseudo50__DROP_SORT_NOCHR.vcf countsMerged_uNormals_P-0029502.dat.gz
+P-0030397-NN.bam P-0029502-TH.bam <path_to_assay_specific_unmatched_diploid_normals>/*bam PoolNormal.bam
 ```
-![matched normal cnlr](/tests/P-0029502_matched_CNLR.png)
 
 ##Run FACETS with matched normal
 ```
@@ -41,7 +43,9 @@ png(filename = "tests/P-0029502_matched_CNLR.png",width = 4, height = 6, units =
 plotSample(x=oo,emfit=fit, plot.type = "both")
 dev.off()
 ```
+Results using matched normal:
 
+![matched normal cnlr](/tests/P-0029502_matched_CNLR.png)
 
 ##Run FACETS with unmatched normal samples
 *The runtime readSnpMatrix() increases with number of unmatched normal samples*
@@ -58,5 +62,6 @@ png(filename = "tests/P-0029502_unmatched_CNLR.png",width = 4, height = 6, units
 plotSample(x=oo,emfit=fit, plot.type = "both")
 dev.off()
 ```
+Results using unmatched normal that minimizes noise:
 
 ![unmatched normal cnlr](/tests/P-0029502_unmatched_CNLR.png)
