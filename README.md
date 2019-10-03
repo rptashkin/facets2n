@@ -60,7 +60,7 @@ Results using matched normal for CNLR:
 ![matched normal cnlr](/tests/P-0029502_matched_CNLR.png)
 
 ## Run FACETS with unmatched normal samples for CNLR
-*The runtime readSnpMatrix() increases with number of unmatched normal samples*
+*The runtime of readSnpMatrix() increases with number of unmatched normal samples*
 ```
 library(facets2n)
 readu = readSnpMatrix(filename = "tests/countsMerged_uNormals_P-0029502.dat.gz",MandUnormal = TRUE)
